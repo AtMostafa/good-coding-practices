@@ -19,7 +19,6 @@ import torch
 from tools import dataTools as dt
 from tools import utilityTools as utility
 monkey_defs = params.monkey_defs
-mouse_defs = params.mouse_defs
 
 def get_ccs(side1df, side2df, epoch, area, n_components, use_procrustes = False): 
     #get data  
@@ -88,35 +87,6 @@ def get_ccs_lower_bound_monkey(side1df, side2df, area, n_components, len_trial, 
 
             data1 = np.reshape(sessionData1_sh[:,:min_trials,:min_time,:], (-1,n_components))
             data2 = np.reshape(sessionData2_sh[:,:min_trials,:min_time,:], (-1,n_components))
-            if use_procrustes:
-                r.append(procrustes_wrapper(data1, data2))
-            else:
-                r.append(canoncorr(data1, data2))
-        CCsL.append(r)
-    CCsL = np.array(CCsL)
-    if calc_percentile:
-        CCsL = np.percentile(CCsL, 1, axis=1).T
-    return CCsL
-
-def get_ccs_lower_bound_mice(side1df, side2df, area, n_components, len_trial, calc_percentile = True, use_procrustes = False):
-    n_iter = params.n_iter * 10
-
-    #get data
-    AllData1_ = dt.get_data_array(side1df, area=area, model=n_components)
-    AllData2_ = dt.get_data_array(side2df, area=area, model=n_components)
-    _,_, min_trials, min_time,_ = np.min((AllData1_.shape,AllData2_.shape),axis=0)
-
-    #get ccs
-    CCsL=[]
-    for sessionData1,sessionData2 in zip(AllData1_,AllData2_):
-        r = []
-        for n in range(n_iter):
-            sessionData1_sh = params.rng.permutation(sessionData1,axis=0)
-            sessionData2_sh = params.rng.permutation(sessionData2,axis=0)
-            time_idx = params.rng.integers(min_time-len_trial)
-
-            data1 = np.reshape(sessionData1_sh[:,:min_trials,time_idx:time_idx+len_trial,:], (-1,n_components))
-            data2 = np.reshape(sessionData2_sh[:,:min_trials,time_idx:time_idx+len_trial,:], (-1,n_components))
             if use_procrustes:
                 r.append(procrustes_wrapper(data1, data2))
             else:
@@ -197,57 +167,11 @@ def plot_cca(ax, ax_hist, allDFs, epoch, area, n_components, dataset = 'monkey',
     ax_hist.set_yticklabels([])
     ax_hist.legend(loc=(0,-.05))
 
-    #stats ###################################
-    allCCs_median = np.median(allCCs[:4,:].mean(axis=0))
-    CCsU_median = np.median(CCsU[:4,:].mean(axis=0))
-    CCsL_median = np.median(CCsL[:4,:].mean(axis=0))
-    allCCs_mean = allCCs[:4,:].mean(axis=0)
-    CCsU_mean = CCsU[:4,:].mean(axis=0)
-    CCsL_mean = CCsL[:4,:].mean(axis=0)
-
-    #calc stats
-    ##for paired stats
-    side1CCsU_mean = [CCsU_mean[i] for i,_ in pairFileList]
-    side2CCsU_mean = [CCsU_mean[j] for _,j in pairFileList]
-    allCCsU_mean = side1CCsU_mean + side2CCsU_mean
-        
-    compare_upper_stats = wilcoxon(np.tile(allCCs_mean,2), allCCsU_mean)
-    compare_lower_stats = wilcoxon(allCCs_mean, CCsL_mean)
-
-    ##for unpaired stats
-    # compare_upper_stats = mannwhitneyu(allCCs_mean, CCsU_mean)
-    # compare_lower_stats = mannwhitneyu(allCCs_mean, CCsL_mean)
-
-    print("Across vs within:", compare_upper_stats)
-    print("Across vs control:", compare_lower_stats)
-
-    if params.annotate_stats:
-        #annotate stats
-        xmin, xmax = ax_hist.get_xlim()
-        markerx = xmax+(xmax-xmin)*0.05
-        linex = xmax+(xmax-xmin)*0.15
-        textx = xmax+(xmax-xmin)*0.25
-        line_kwargs = dict(linewidth = 0.5, color = 'k')
-        text_kwargs = dict(ha='left', va='center')
-
-        ax_hist.scatter(markerx, allCCs_median, color = params.colors.MainCC, marker = '<')
-        ax_hist.scatter(markerx, CCsU_median, color = params.colors.UpperCC, marker = '<')
-        ax_hist.scatter(markerx, CCsL_median, color = params.colors.LowerCC, marker = '<')
-
-        ax_hist.plot([linex, linex], [allCCs_median, CCsU_median], **line_kwargs)
-        ax_hist.plot([linex, linex], [allCCs_median, CCsL_median], linestyle = '--', **line_kwargs)
-        
-        ax_hist.text(textx, (allCCs_median + CCsU_median)/2, dt.get_signif_annot(compare_upper_stats[1]), **text_kwargs)
-        ax_hist.text(textx, (allCCs_median + CCsL_median)/2, dt.get_signif_annot(compare_lower_stats[1]), **text_kwargs)
-
 def plot_cca_for_ex(ax, example_dfs, epoch, area, n_components, dataset = 'monkey', prep = False):
 
     if dataset == 'monkey':
         animals = 'monkeys'
         defs = monkey_defs
-    elif dataset == 'mouse':
-        animals = 'mice'
-        defs = mouse_defs
     else:
         raise ValueError('dataset must be monkey or mouse')
     
@@ -260,10 +184,7 @@ def plot_cca_for_ex(ax, example_dfs, epoch, area, n_components, dataset = 'monke
     else:
         len_trial = int(np.round(np.diff(defs.WINDOW_prep)/defs.BIN_SIZE))
     allCCs = get_ccs(df1,df2, epoch, area, n_components)
-    if dataset == 'monkey':
-        CCsL = get_ccs_lower_bound_monkey(df1,df2, area, n_components, len_trial)
-    else:
-        CCsL = get_ccs_lower_bound_mice(df1,df2, area, n_components, len_trial)
+    CCsL = get_ccs_lower_bound_monkey(df1,df2, area, n_components, len_trial)
     CCsU = get_ccs_upper_bound([df1,df2], epoch, area, n_components)
 
     # plotting
@@ -361,39 +282,6 @@ def canoncorr(X:np.array, Y: np.array, fullReturn: bool = False) -> np.array:
 
     return A, B, r, U, V
 
-def canoncorr_torch(X:torch.Tensor, Y: torch.Tensor) -> torch.Tensor:
-    """
-    Canonical Correlation Analysis (CCA) using torch
-    adapted from `canoncorr`, does not do fullReturn
-    X,Y: (samples/observations) x (features) matrix, for both: X.shape[0] >> X.shape[1]
-    
-    r:   Canonical correlations
-    
-    Signature:
-    r = canoncorr(X, Y)
-    """
-    n, p1 = X.shape
-    p2 = Y.shape[1]
-    if p1 >= n or p2 >= n:
-        logging.warning('Not enough samples, might cause problems')
-
-    #NOTE: removed centering since it did not work with backprop
-
-    # Factor the inputs, and find a full rank set of columns if necessary
-    Q1,T11 = torch.linalg.qr(X, mode='reduced')
-    Q2,T22 = torch.linalg.qr(Y, mode='reduced')
-    rankX = torch.sum(torch.abs(torch.diagonal(T11)) > torch.finfo(torch.abs(T11[0,0]).dtype).eps*max([n,p1]))
-    rankY = torch.sum(torch.abs(torch.diagonal(T22)) > torch.finfo(torch.abs(T22[0,0]).dtype).eps*max([n,p1]))
-    
-    Q1 = Q1[:,:rankX]
-    Q2 = Q2[:,:rankY]
-
-    # Canonical correlations
-    r = torch.linalg.svdvals(Q1.T @ Q2) 
-
-    return r
-
-
 def procrustes_wrapper(A: np.ndarray, B: np.ndarray, fullReturn=False):
     """Procrustes alignment wrapper based on `scipy.spatial.procrustes`.
     A, B: (samples/observations) x (features) matrix, for both: A.shape[0] >> A.shape[1]
@@ -414,6 +302,7 @@ def procrustes_wrapper(A: np.ndarray, B: np.ndarray, fullReturn=False):
 
 def get_target_id(trial):
     return int(np.round((trial.target_direction + np.pi) / (0.25*np.pi))) - 1
+
 
 def VAF_pc_cc (X: np.ndarray, C: np.ndarray, A: np.ndarray) -> np.ndarray:
     """

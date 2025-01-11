@@ -13,11 +13,10 @@ from sklearn.decomposition import PCA
 import pickle
 from collections import Counter
 from tools import utilityTools as utility
-mouse_defs = params.mouse_defs
-monkey_defs = params.monkey_defs
-random_walk_defs = params.random_walk_defs
 
-rng = np.random.default_rng(12345)
+monkey_defs = params.monkey_defs
+
+rng = params.rng
 
 def summary(df):
     "prints a summary of monkey task datasets"
@@ -189,17 +188,6 @@ def add_history_to_data_array(allData, n_hist):
                 out[session,target,trial,:,:] = add_history(trialData, n_hist)
     return out
 
-def get_signif_annot(value):
-    assert(value >=0)
-
-    if value >0.05:
-        return 'n.s.'
-    elif value > 0.01:
-        return '*'
-    elif value > 0.001:
-        return '**'
-    else:
-        return '***'
 
 def _get_data_array(data_list: list[pd.DataFrame], epoch_L: int =None , area: str ='M1', model=None) -> np.ndarray:
     "Similar to `get_data_array` only returns an epoch of length `epoch_L` randomly chosen along each trial"
@@ -345,139 +333,6 @@ def get_example_monkey_data(epoch = None):
         raster_example_df.append(df)
     return raster_example_df
 
-def get_full_mouse_data(prep_pull = False):
-    defs = mouse_defs
-    
-    animalList = ['mouse-data']
-    animalFiles = []
-    for animal in animalList:
-        animalFiles.extend(utility.find_file(params.root / animal, 'mat'))
-
-    AllDFs=[]
-    for fname in animalFiles:
-        df = load_pyal_data(fname)
-        df['mouse'] = fname.split(os.sep)[-1][fname.split(os.sep)[-1].find('WR'):].split('_')[0]
-        df['file'] = fname.split(os.sep)[-1]
-        df['session']=df['file']
-        if prep_pull:
-            df = defs.prep_pull_mouse(df)
-        else:
-            df = defs.prep_general_mouse(df)
-        df['pos']=df['hTrjB']
-        AllDFs.append(df)
-
-    allDFs_M1 = []
-    for df in AllDFs:
-        if 'M1_rates' in df.columns:
-            allDFs_M1.append(df)
-
-    allDFs_Str = []
-    for df in AllDFs:
-        if 'Str_rates' in df.columns:
-            allDFs_Str.append(df)
-            
-    return allDFs_M1, allDFs_Str
-
-def get_example_mouse_data():
-    example = mouse_defs._example
-    animal = 'mouse-data'
-    
-    example_df = []
-    for session in example:
-        path = params.root / animal / session
-        df = load_pyal_data(path)
-        path = str(path)
-        df['mouse'] = path.split(os.sep)[-1][path.split(os.sep)[-1].find('WR'):].split('_')[0]
-        df['file'] = path.split(os.sep)[-1]
-        df['session']=df['file']
-        df = mouse_defs.prep_general_mouse(df)
-        df['pos']=df['hTrjB']
-        df = pyal.restrict_to_interval(df, epoch_fun=mouse_defs.exec_epoch)
-        example_df.append(df)
-        
-    return example_df
-
-## monkey rw
-### Get data
-def get_full_random_walk_data(GoodDataList_RW):
-    defs = random_walk_defs
-
-    full_list_MCx = []
-    for animal, sessionList in GoodDataList_RW['MCx'].items():
-        full_list_MCx.append((animal,sessionList))
-    full_list_MCx = [(animal,session) for animal,sessions in full_list_MCx for session in set(sessions)]
-    # load the DFs
-    allDFs_MCx = []
-    allDFs_exec_MCx = []
-    for animal, session in full_list_MCx:
-        path = params.root/'random_walk'/animal/session
-        df_ = defs.prep_general(load_pyal_data(path))
-
-        #separate into reaches
-        df_ = defs.get_reaches_df(df_)
-        df_['reach_id'] = range(len(df_))
-
-        #subset center-out trials
-        df_ = df_[df_.center_dist < defs.subset_radius]
-        df_ = df_.reset_index()
-
-        #execution epoch
-        for col in df_.columns:  #TODO: placeholder to prevent bug in pyaldata
-            if 'unit_guide' in col:
-                df_ = df_.drop([col], axis = 1)
-        df_ = pyal.add_movement_onset(df_)
-        allDFs_MCx.append(df_)
-
-        df_ = pyal.restrict_to_interval(df_, epoch_fun=defs.exec_epoch)
-        allDFs_exec_MCx.append(df_)
-    
-        
-    return full_list_MCx, allDFs_MCx, allDFs_exec_MCx
-
-def get_paired_dfs(GoodDataList_RW, MCx_list, allDFs_MCx, allDFs_exec_MCx):
-    defs = random_walk_defs
-
-    ref_file = 'Chewie_RT_CS_2016-10-21.mat' #TODO: put in defs
-    ref_i = [y for x,y in MCx_list].index(ref_file)
-    df1 = allDFs_exec_MCx[ref_i]
-
-    Mihili_files = GoodDataList_RW['MCx']['Mihili']
-    MrT_files = GoodDataList_RW['MCx']['MrT']
-    comparison_files = Mihili_files + MrT_files
-
-    paired_dfs = []
-    for ex_file in comparison_files:
-        
-        ex_i = [y for x,y in MCx_list].index(ex_file)
-        df2 = allDFs_exec_MCx[ex_i]
-
-        #subset dataframes with matched reaches
-        df1_idx, df2_idx = defs.get_matched_reaches_idx(df1, df2)
-        df1_subset = df1.iloc[df1_idx]
-        df2_subset = df2.iloc[df2_idx]
-
-        #get dataframes from whole-trial data
-        df1_ = pd.DataFrame({'reach_id':df1_subset.reach_id}).merge(allDFs_MCx[ref_i])
-        df2_ = pd.DataFrame({'reach_id':df2_subset.reach_id}).merge(allDFs_MCx[ex_i])
-
-        #set target ids
-        print(ex_file, len(df1_) - (df1_.target_group.values == df2_.target_group.values).sum(), 'diff target groups')
-        df1_.target_group = df2_.target_group.values 
-        df1_['target_id'] = df1_.target_group.values
-        df2_['target_id'] = df2_.target_group.values
-
-        #only keep target groups with enough trials
-        counter = Counter(df1_.target_group)
-        subset_target_groups = [k for k, c in counter.items() if c >= defs.min_trials_per_target]
-        df1_ = df1_[df1_.target_group.isin(subset_target_groups)]
-        df2_ = df2_[df2_.target_group.isin(subset_target_groups)]
-        
-        print(len(subset_target_groups), 'target groups left')
-
-        paired_dfs.append((ex_file, df1_, df2_))
-    
-    return paired_dfs
-
 ## general
 def get_paired_files_monkey(allDFs):
     pairFileList = []
@@ -487,13 +342,5 @@ def get_paired_files_monkey(allDFs):
             animal2 = df2.monkey[0]
             if J<=I or animal1 == animal2: continue  # to repetitions
             if 'Chewie' in animal1 and 'Chewie' in animal2: continue 
-            pairFileList.append((I,J))
-    return pairFileList
-
-def get_paired_files_mouse(allDFs):
-    pairFileList = []
-    for I, df1 in enumerate(allDFs):
-        for J, (df2) in enumerate(allDFs):
-            if J<=I or df1.mouse[0] == df2.mouse[0]: continue  # repetitions
             pairFileList.append((I,J))
     return pairFileList
