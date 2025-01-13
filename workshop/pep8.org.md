@@ -2,6 +2,8 @@
 PEP 8 — the Style Guide for Python Code
 =======================================
 
+Material based on [this](https://pep8.org/) website.
+
 This stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/) was created by [Kenneth Reitz](http://kennethreitz.org/bitcoin) (for humans).
 
 Introduction
