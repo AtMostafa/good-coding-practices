@@ -4,36 +4,18 @@ PEP 8 — the Style Guide for Python Code
 
 Material based on [this](https://pep8.org/) website.
 
-This stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/) was created by [Kenneth Reitz](http://kennethreitz.org/bitcoin) (for humans).
+This is a stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
 Introduction
 ============
 
-This document gives coding conventions for the Python code comprising the standard library in the main Python distribution. Please see the companion informational PEP describing style guidelines for the C code in the C implementation of Python [1](#fn1).
-
-This document and [PEP 257](https://www.python.org/dev/peps/pep-0257/) (Docstring Conventions) were adapted from Guido’s original Python Style Guide essay, with some additions from Barry’s style guide [2](#fn2).
-
 This style guide evolves over time as additional conventions are identified and past conventions are rendered obsolete by changes in the language itself.
 
-Many projects have their own coding style guidelines. In the event of any conflicts, such project-specific guides take precedence for that project.
-
-A Foolish Consistency is the Hobgoblin of Little Minds
-======================================================
-
-One of Guido’s key insights is that code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code and make it consistent across the wide spectrum of Python code. As [PEP 20](https://www.python.org/dev/peps/pep-0020/) says, “Readability counts”.
+One of Guido’s key insights is that code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code and make it consistent across the wide spectrum of Python code.
 
 A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.
 
 However, know when to be inconsistent—sometimes style guide recommendations just aren't applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don’t hesitate to ask!
-
-In particular: do not break backwards compatibility just to comply with this PEP!
-
-Some other good reasons to ignore a particular guideline:
-
-1.  When applying the guideline would make the code less readable, even for someone who is used to reading code that follows this PEP.
-2.  To be consistent with surrounding code that also breaks it (maybe for historic reasons) – although this is also an opportunity to clean up someone else’s mess (in true XP style).
-3.  Because the code in question predates the introduction of the guideline and there is no other reason to be modifying that code.
-4.  When the code needs to remain compatible with older versions of Python that don’t support the feature recommended by the style guide.
 
 Code lay-out
 ============
@@ -42,8 +24,6 @@ Indentation
 -----------
 
 Use 4 spaces per indentation level.
-
-Continuation lines should align wrapped elements either vertically using Python’s implicit line joining inside parentheses, brackets and braces, or using a _hanging indent_ [3](#fn3). When using a hanging indent the following should be considered; there should be no arguments on the first line and further indentation should be used to clearly distinguish itself as a continuation line.
 
 Yes:
 
@@ -74,70 +54,12 @@ No:
         var_four):
         print(var_one)
 
-The 4-space rule is optional for continuation lines.
-
-Optional:
-
-    # Hanging indents *may* be indented to other than 4 spaces.
-    foo = long_function_name(
-      var_one, var_two,
-      var_three, var_four)
-
-When the conditional part of an `if`\-statement is long enough to require that it be written across multiple lines, it’s worth noting that the combination of a two character keyword (i.e. `if`), plus a single space, plus an opening parenthesis creates a natural 4-space indent for the subsequent lines of the multiline conditional. This can produce a visual conflict with the indented suite of code nested inside the `if`\-statement, which would also naturally be indented to 4 spaces. This PEP takes no explicit position on how (or whether) to further visually distinguish such conditional lines from the nested suite inside the `if`\-statement. Acceptable options in this situation include, but are not limited to:
-
-    # No extra indentation.
-    if (this_is_one_thing and
-        that_is_another_thing):
-        do_something()
-    
-    # Add a comment, which will provide some distinction in editors
-    # supporting syntax highlighting.
-    if (this_is_one_thing and
-        that_is_another_thing):
-        # Since both conditions are true, we can frobnicate.
-        do_something()
-    
-    # Add some extra indentation on the conditional continuation line.
-    if (this_is_one_thing
-            and that_is_another_thing):
-        do_something()
-
-(Also see the discussion of whether to break before or after binary operators below.)
-
-The closing brace/bracket/parenthesis on multi-line constructs may either line up under the first non-whitespace character of the last line of list, as in:
-
-    my_list = [
-        1, 2, 3,
-        4, 5, 6,
-        ]
-    result = some_function_that_takes_arguments(
-        'a', 'b', 'c',
-        'd', 'e', 'f',
-        )
-
-or it may be lined up under the first character of the line that starts the multi-line construct, as in:
-
-    my_list = [
-        1, 2, 3,
-        4, 5, 6,
-    ]
-    result = some_function_that_takes_arguments(
-        'a', 'b', 'c',
-        'd', 'e', 'f',
-    )
-
 Tabs or Spaces?
 ---------------
 
 Spaces are the preferred indentation method.
 
 Tabs should be used solely to remain consistent with code that is already indented with tabs.
-
-Python 3 disallows mixing the use of tabs and spaces for indentation.
-
-Python 2 code indented with a mixture of tabs and spaces should be converted to using spaces exclusively.
-
-When invoking the Python 2 command line interpreter with the `-t` option, it issues warnings about code that illegally mixes tabs and spaces. When using `-tt` these warnings become errors. These options are highly recommended!
 
 Maximum Line Length
 -------------------
@@ -148,12 +70,6 @@ For flowing long blocks of text with fewer structural restrictions (docstrings o
 
 Limiting the required editor window width makes it possible to have several files open side-by-side, and works well when using code review tools that present the two versions in adjacent columns.
 
-The default wrapping in most tools disrupts the visual structure of the code, making it more difficult to understand. The limits are chosen to avoid wrapping in editors with the window width set to 80, even if the tool places a marker glyph in the final column when wrapping lines. Some web based tools may not offer dynamic line wrapping at all.
-
-Some teams strongly prefer a longer line length. For code maintained exclusively or primarily by a team that can reach agreement on this issue, it is okay to increase the nominal line length from 80 to 100 characters (effectively increasing the maximum length to 99 characters), provided that comments and docstrings are still wrapped at 72 characters.
-
-The Python standard library is conservative and requires limiting lines to 79 characters (and docstrings/comments to 72).
-
 The preferred way of wrapping long lines is by using Python’s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.
 
 Backslashes may still be appropriate at times. For example, long, multiple `with`\-statements cannot use implicit continuation, so backslashes are acceptable:
@@ -161,41 +77,7 @@ Backslashes may still be appropriate at times. For example, long, multiple `with
     with open('/path/to/some/file/you/want/to/read') as file_1, \
          open('/path/to/some/file/being/written', 'w') as file_2:
         file_2.write(file_1.read())
-
-(See the previous discussion on [multiline if-statements](#if-statements) for further thoughts on the indentation of such multiline `with`\-statements.)
-
-Another such case is with `assert` statements.
-
-Make sure to indent the continued line appropriately.
-
-Should a line break before or after a binary operator?
-------------------------------------------------------
-
-For decades the recommended style was to break after binary operators. But this can hurt readability in two ways: the operators tend to get scattered across different columns on the screen, and each operator is moved away from its operand and onto the previous line. Here, the eye has to do extra work to tell which items are added and which are subtracted:
-
-    # No: operators sit far away from their operands
-    income = (gross_wages +
-              taxable_interest +
-              (dividends - qualified_dividends) -
-              ira_deduction -
-              student_loan_interest)
-    
-
-To solve this readability problem, mathematicians and their publishers follow the opposite convention. Donald Knuth explains the traditional rule in his _Computers and Typesetting_ series:
-
-> “Although formulas within a paragraph always break after binary operations and relations, displayed formulas always break before binary operations” [4](#fn4).
-
-Following the tradition from mathematics usually results in more readable code:
-
-    # Yes: easy to match operators with operands
-    income = (gross_wages
-              + taxable_interest
-              + (dividends - qualified_dividends)
-              - ira_deduction
-              - student_loan_interest)
-    
-
-In Python code, it is permissible to break before or after a binary operator, as long as the convention is consistent locally. For new code Knuth's style is suggested.
+Another such case is with `assert` statements. Make sure to indent the continued line appropriately.
 
 Blank Lines
 -----------
@@ -207,21 +89,6 @@ Method definitions inside a class are surrounded by a single blank line.
 Extra blank lines may be used (sparingly) to separate groups of related functions. Blank lines may be omitted between a bunch of related one-liners (e.g. a set of dummy implementations).
 
 Use blank lines in functions, sparingly, to indicate logical sections.
-
-Python accepts the control-L (i.e. ^L) form feed character as whitespace; Many tools treat these characters as page separators, so you may use them to separate pages of related sections of your file. Note, some editors and web-based code viewers may not recognize control-L as a form feed and will show another glyph in its place.
-
-Source File Encoding
---------------------
-
-Code in the core Python distribution should always use UTF-8 (or ASCII in Python 2).
-
-Files using ASCII (in Python 2) or UTF-8 (in Python 3) should not have an encoding declaration.
-
-In the standard library, non-default encodings should be used only for test purposes or when a comment or docstring needs to mention an author name that contains non-ASCII characters; otherwise, using `\x`, `\u`, `\U`, or `\N` escapes is the preferred way to include non-ASCII data in string literals.
-
-For Python 3.0 and beyond, the following policy is prescribed for the standard library (see [PEP 3131](https://www.python.org/dev/peps/pep-3131)): All identifiers in the Python standard library MUST use ASCII-only identifiers, and SHOULD use English words wherever feasible (in many cases, abbreviations and technical terms are used which aren’t English). In addition, string literals and comments must also be in ASCII. The only exceptions are (a) test cases testing the non-ASCII features, and (b) names of authors. Authors whose names are not based on the latin alphabet MUST provide a latin transliteration of their names.
-
-Open source projects with a global audience are encouraged to adopt a similar policy.
 
 Imports
 -------
@@ -251,64 +118,12 @@ Imports
     
     You should put a blank line between each group of imports.
     
-*   Absolute imports are recommended, as they are usually more readable and tend to be better behaved (or at least give better error messages) if the import system is incorrectly configured (such as when a directory inside a package ends up on `sys.path`):
-    
-        import mypkg.sibling
-        from mypkg import sibling
-        from mypkg.sibling import example
-    
-    However, explicit relative imports are an acceptable alternative to absolute imports, especially when dealing with complex package layouts where using absolute imports would be unnecessarily verbose:
-    
-        from . import sibling
-        from .sibling import example
-    
-    Standard library code should avoid complex package layouts and always use absolute imports.
-    
-    Implicit relative imports should _never_ be used and have been removed in Python 3.
-    
-*   When importing a class from a class-containing module, it’s usually okay to spell this:
-    
-        from myclass import MyClass
-        from foo.bar.yourclass import YourClass
-    
-    If this spelling causes local name clashes, then spell them :
-    
-        import myclass
-        import foo.bar.yourclass
-    
-    and use `myclass.MyClass` and `foo.bar.yourclass.YourClass`.
-    
-*   Wildcard imports (`from <module> import *`) should be avoided, as they make it unclear which names are present in the namespace, confusing both readers and many automated tools. There is one defensible use case for a wildcard import, which is to republish an internal interface as part of a public API (for example, overwriting a pure Python implementation of an interface with the definitions from an optional accelerator module and exactly which definitions will be overwritten isn’t known in advance).
-    
-    When republishing names this way, the guidelines below regarding public and internal interfaces still apply.
-    
-
-Module level dunder names
--------------------------
-
-Module level "dunders" (i.e. names with two leading and two trailing underscores) such as `__all__`, `__author__`, `__version__`, etc. should be placed after the module docstring but before any import statements _except_ `from __future__` imports. Python mandates that future-imports must appear in the module before any other code except docstrings.
-
-For example:
-
-    """This is the example module.
-    
-    This module does stuff.
-    """
-    
-    from __future__ import barry_as_FLUFL
-    
-    __all__ = ['a', 'b', 'c']
-    __version__ = '0.1'
-    __author__ = 'Cardinal Biggles'
-    
-    import os
-    import sys
-    
+*   Wildcard imports (`from <module> import *`) should be avoided, as they make it unclear which names are present in the namespace, confusing both readers and many automated tools.
 
 String Quotes
 =============
 
-In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it. When a string contains single or double quote characters, however, use the other one to avoid backslashes in the string. It improves readability.
+In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
@@ -349,24 +164,7 @@ Avoid extraneous whitespace in the following situations:
     No:
     
         if x == 4 : print x , y ; x , y = y , x
-    
-*   However, in a slice the colon acts like a binary operator, and should have equal amounts on either side (treating it as the operator with the lowest priority). In an extended slice, both colons must have the same amount of spacing applied. Exception: when a slice parameter is omitted, the space is omitted.
-    
-    Yes:
-    
-        ham[1:9], ham[1:9:3], ham[:9:3], ham[1::3], ham[1:9:]
-        ham[lower:upper], ham[lower:upper:], ham[lower::step]
-        ham[lower+offset : upper+offset]
-        ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
-        ham[lower + offset : upper + offset]
-    
-    No:
-    
-        ham[lower + offset:upper + offset]
-        ham[1: 9], ham[1 :9], ham[1:9 :3]
-        ham[lower : : upper]
-        ham[ : upper]
-    
+        
 *   Immediately before the open parenthesis that starts the argument list of a function call:
     
     Yes:
@@ -387,7 +185,7 @@ Avoid extraneous whitespace in the following situations:
     
         dct ['key'] = lst [index]
     
-*   More than one space around an assignment (or other) operator to align it with another.
+*   __More than one__ space around an assignment (or other) operator to align it with another.
     
     Yes:
     
@@ -400,32 +198,13 @@ Avoid extraneous whitespace in the following situations:
         x             = 1
         y             = 2
         long_variable = 3
-    
 
 Other Recommendations
 ---------------------
 
-*   Avoid trailing whitespace anywhere. Because it’s usually invisible, it can be confusing: e.g. a backslash followed by a space and a newline does not count as a line continuation marker. Some editors don’t preserve it and many projects (like CPython itself) have pre-commit hooks that reject it.
+*   Avoid trailing whitespace anywhere. Because it’s usually invisible, it can be confusing: e.g. a backslash followed by a space and a newline does not count as a line continuation marker.
 
 *   Always surround these binary operators with a single space on either side: assignment (`=`), augmented assignment (`+=`, `-=` etc.), comparisons (`==`, `<`, `>`, `!=`, `<>`, `<=`, `>=`, `in`, `not in`, `is`, `is not`), Booleans (`and`, `or`, `not`).
-
-*   If operators with different priorities are used, consider adding whitespace around the operators with the lowest priority(ies). Use your own judgment; however, never use more than one space, and always have the same amount of whitespace on both sides of a binary operator.
-    
-    Yes:
-    
-        i = i + 1
-        submitted += 1
-        x = x*2 - 1
-        hypot2 = x*x + y*y
-        c = (a+b) * (a-b)
-    
-    No:
-    
-        i=i+1
-        submitted +=1
-        x = x * 2 - 1
-        hypot2 = x * x + y * y
-        c = (a + b) * (a - b)
     
 *   Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
     
@@ -445,14 +224,14 @@ Other Recommendations
     
         def munge(input: AnyStr): ...
         def munge() -> AnyStr: ...
-    
+
     No:
     
         def munge(input:AnyStr): ...
         def munge()->PosInt: ...
-    
+
 *   When combining an argument annotation with a default value, use spaces around the `=` sign (but only for those arguments that have both an annotation and a default).
-    
+
     Yes:
     
         def munge(sep: AnyStr = None): ...
@@ -477,7 +256,7 @@ Other Recommendations
     
         if foo == 'blah': do_blah_thing()
         do_one(); do_two(); do_three()
-    
+
 *   While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements. Also avoid folding such long lines!
     
     Rather not:
@@ -498,50 +277,13 @@ Other Recommendations
                                      list, like, this)
         
         if foo == 'blah': one(); two(); three()
-    
-
-When to use trailing commas
-===========================
-
-Trailing commas are usually optional, except they are mandatory when making a tuple of one element (and in Python 2 they have semantics for the `print` statement). For clarity, it is recommended to surround the latter in (technically redundant) parentheses.
-
-Yes:
-
-    FILES = ('setup.cfg',)
-
-OK, but confusing:
-
-    FILES = 'setup.cfg',
-
-When trailing commas are redundant, they are often helpful when a version control system is used, when a list of values, arguments or imported items is expected to be extended over time. The pattern is to put each value (etc.) on a line by itself, always adding a trailing comma, and add the close parenthesis/bracket/brace on the next line. However it does not make sense to have a trailing comma on the same line as the closing delimiter (except in the above case of singleton tuples).
-
-Yes:
-
-    FILES = [
-        'setup.cfg',
-        'tox.ini',
-        ]
-    initialize(FILES,
-               error=True,
-               )
-
-No:
-
-    FILES = ['setup.cfg', 'tox.ini',]
-    initialize(FILES, error=True,)
 
 Comments
 ========
 
 Comments that contradict the code are worse than no comments. Always make a priority of keeping the comments up-to-date when the code changes!
 
-Comments should be complete sentences. If a comment is a phrase or sentence, its first word should be capitalized, unless it is an identifier that begins with a lower case letter (never alter the case of identifiers!).
-
-If a comment is short, the period at the end can be omitted. Block comments generally consist of one or more paragraphs built out of complete sentences, and each sentence should end in a period.
-
 You should use two spaces after a sentence-ending period.
-
-When writing English, follow Strunk and White.
 
 Python coders from non-English speaking countries: please write your comments in English, unless you are 120% sure that the code will never be read by people who don’t speak your language.
 
@@ -549,8 +291,6 @@ Block Comments
 --------------
 
 Block comments generally apply to some (or all) code that follows them, and are indented to the same level as that code. Each line of a block comment starts with a `#` and a single space (unless it is indented text inside the comment).
-
-Paragraphs inside a block comment are separated by a line containing a single `#`.
 
 Inline Comments
 ---------------
@@ -574,7 +314,7 @@ Documentation Strings
 
 Conventions for writing good documentation strings (a.k.a. “docstrings”) are immortalized in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
-*   Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does. This comment should appear after the `def` line.
+*   Write docstrings for all public modules, functions, classes, and methods.
 
 *   [PEP 257](https://www.python.org/dev/peps/pep-0257/) describes good docstring conventions. Note that most importantly, the `"""` that ends a multiline docstring should be on a line by itself, e.g.:
     
@@ -582,13 +322,13 @@ Conventions for writing good documentation strings (a.k.a. “docstrings”) are
         
         Optional plotz says to frobnicate the bizbaz first.
         """
-    
+
 *   For one liner docstrings, please keep the closing `"""` on the same line.
 
 Naming Conventions
 ==================
 
-The naming conventions of Python’s library are a bit of a mess, so we’ll never get this completely consistent – nevertheless, here are the currently recommended naming standards. New modules and packages (including third party frameworks) should be written to these standards, but where an existing library has a different style, internal consistency is preferred.
+The naming conventions of Python’s library are a bit of a mess, so we’ll never get this completely consistent – nevertheless, here are the currently recommended naming standards.
 
 Overriding Principle
 --------------------
