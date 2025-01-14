@@ -1,7 +1,7 @@
 
 # PEP 8 — the Style Guide for Python Code
 
-Material based on [this](https://pep8.org/) website.
+This material is based on [the pep8.org](https://pep8.org/) website.
 
 This is a stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
