@@ -1,25 +1,36 @@
+---
+marp: false
+size: 16:9
+theme: default
+paginate: true
 
-# PEP 8 — the Style Guide for Python Code
+---
+
+# PEP 8 — the Style Guide for Python Code  
 
 This material is based on [the pep8.org](https://pep8.org/) website.
 
 This is a stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
+---
+
 # Introduction
 
 This style guide evolves over time as additional conventions are identified and past conventions are rendered obsolete by changes in the language itself.
 
-One of Guido’s key insights is that code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code and make it consistent across the wide spectrum of Python code.
+Code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code.
 
 A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.
 
-However, know when to be inconsistent—sometimes style guide recommendations just aren't applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don’t hesitate to ask!
+---
 
 # Code layout
 
 ## Indentation
 
 Use 4 spaces per indentation level.
+
+---
 
 Yes:
 
@@ -38,6 +49,8 @@ Yes:
         var_one, var_two,
         var_three, var_four)
 
+---
+
 No:
 
     # Arguments on first line forbidden when not using vertical alignment.
@@ -50,6 +63,8 @@ No:
         var_four):
         print(var_one)
 
+---
+
 ## Tabs or Spaces?
 
 Spaces are the preferred indentation method.
@@ -60,18 +75,12 @@ Tabs should be used solely to remain consistent with code that is already indent
 
 Limit all lines to a maximum of 79 characters.
 
-For flowing long blocks of text with fewer structural restrictions (docstrings or comments), the line length should be limited to 72 characters.
-
-Limiting the required editor window width makes it possible to have several files open side-by-side, and works well when using code review tools that present the two versions in adjacent columns.
-
 The preferred way of wrapping long lines is by using Python’s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.
 
-Backslashes may still be appropriate at times. For example, long, multiple `with`\-statements cannot use implicit continuation, so backslashes are acceptable:
+Backslashes may still be appropriate at times. For example, long, multiple `assert`\-statements:
 
-    with open('/path/to/some/file/you/want/to/read') as file_1, \
-         open('/path/to/some/file/being/written', 'w') as file_2:
-        file_2.write(file_1.read())
-Another such case is with `assert` statements. Make sure to indent the continued line appropriately.
+    assert isinstance(some_input, int), \
+        f"Wrong input format, expected `int` but got {type(some_input)} instead."
 
 ## Blank Lines
 
@@ -98,13 +107,13 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
         from subprocess import Popen, PIPE
 
-* Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
+* Imports are always put at the top of the file, just after module docstring, and before module globals and constants.
 
     Imports should be grouped in the following order:
 
-    1. standard library imports
-    2. related third party imports
-    3. local application/library specific imports
+    1. standard library imports, e.g., `import os`
+    2. related third party imports, e.g., `import numpy`
+    3. local application/library specific imports, e.g., `from submodule/helper_functions import some_function`
 
     You should put a blank line between each group of imports.
 
@@ -112,7 +121,8 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 # String Quotes
 
-In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it.
+In Python, single-quoted strings and double-quoted strings are the same. We do not make a recommendation for this.
+Pick a rule and __stick to it__.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
@@ -176,9 +186,9 @@ Avoid extraneous whitespace in the following situations:
 
     Yes:
 
-        x = 1
-        y = 2
-        long_variable = 3
+        x  = 1
+        y  = 2
+        xy = 3
 
     No:
 
@@ -258,15 +268,7 @@ Use inline comments sparingly.
 
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.
 
-Inline comments are unnecessary and in fact distracting if they state the obvious.
-
-Don’t do this:
-
-    x = x + 1                 # Increment x
-
-But sometimes, this is useful:
-
-    x = x + 1                 # Compensate for border
+    some_code()  # correct spacing for inline comments
 
 ## Documentation Strings
 
@@ -301,17 +303,15 @@ The following naming styles are commonly distinguished:
 
 __Note:__
 
-In addition, the following special forms using leading or trailing underscores are recognized (these can generally be combined with any case convention):
-
 * `_single_leading_underscore`: weak “internal use” indicator. E.g. `from M import *` does not import objects whose name starts with an underscore.
 
 * `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
 
-        Tkinter.Toplevel(master, class_='ClassName')
+        int_ = input("please enter an int")
 
-* `__double_leading_underscore`: when naming a class attribute, invokes name mangling (inside class FooBar, `__boo` becomes `_FooBar__boo`; see below).
+* `__double_leading_underscore`: when naming a class attribute, invokes _name mangling_ (inside class FooBar, `__boo` becomes `_FooBar__boo`).
 
-* `__double_leading_and_trailing_underscore__`: “magic” objects or attributes that live in user-controlled namespaces. E.g. `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
+* `__double_leading_and_trailing_underscore__`: “magic” objects or attributes, e.g., `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
 
 ## Prescriptive: Naming Conventions
 
@@ -325,23 +325,25 @@ Modules should have short, all-lowercase names. Underscores can be used in the m
 
 ### Class Names
 
-Class names should normally use the CapWords convention.
+Class names should normally use the `CapitalizedWords` convention.
 
 ### Function Names
 
 Function names should be `lower_case_with_underscores`.
 
-The `mixedCase` is allowed only in contexts where that’s already the prevailing style (e.g. threading.py), to retain backwards compatibility.
+The `mixedCase` is allowed only to retain backwards compatibility.
 
 ### Type variable names
 
-Names of type variables introduced in PEP 484 should normally use CapWords preferring short names: `T`, `AnyStr`, `Num`.
+Names of type variables introduced in PEP 484 should normally use `CapitalizedWords` preferring short names: `T`, `AnyStr`, `Num`.
 
 ### Global Variable Names
 
 (Let’s hope that these variables are meant for use inside one module only.) The conventions are about the same as those for functions.
 
 ### Function and method arguments
+
+Use `lower_case_with_underscores` names.
 
 Always use `self` for the first argument to instance methods.
 
@@ -386,9 +388,9 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
         f = lambda x: 2*x
 
-* When catching exceptions, mention specific exceptions whenever possible instead of using a bare `except:` clause.
+* When catching exceptions, mention specific exceptions whenever possible.
 
-    For example, use:
+    Use:
 
         try:
             import platform_specific_module
@@ -401,13 +403,6 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
             import platform_specific_module
         except Exception:
             platform_specific_module = None
-
-* When binding caught exceptions to a name, prefer the explicit name binding syntax added in Python 2.6:
-
-        try:
-            process_data()
-        except Exception as exc:
-            raise DataProcessingFailedError(str(exc))
 
 * Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
 
@@ -429,7 +424,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
             # Will also catch KeyError raised by handle_value()
             return key_not_found(key)
 
-* Use `''.startswith()` and `''.endswith()` instead of string slicing to check for prefixes or suffixes.
+* Use `''.startswith()` and `''.endswith()` instead of string slicing.
 
     `startswith()` and `endswith()` are cleaner and less error prone. For example:
 
