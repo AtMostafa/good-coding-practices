@@ -1,13 +1,11 @@
 
-PEP 8 — the Style Guide for Python Code
-=======================================
+# PEP 8 — the Style Guide for Python Code
 
 Material based on [this](https://pep8.org/) website.
 
 This is a stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
-Introduction
-============
+# Introduction
 
 This style guide evolves over time as additional conventions are identified and past conventions are rendered obsolete by changes in the language itself.
 
@@ -17,11 +15,9 @@ A style guide is about consistency. Consistency with this style guide is importa
 
 However, know when to be inconsistent—sometimes style guide recommendations just aren't applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. And don’t hesitate to ask!
 
-Code lay-out
-============
+# Code lay-out
 
-Indentation
------------
+## Indentation
 
 Use 4 spaces per indentation level.
 
@@ -54,15 +50,13 @@ No:
         var_four):
         print(var_one)
 
-Tabs or Spaces?
----------------
+## Tabs or Spaces?
 
 Spaces are the preferred indentation method.
 
 Tabs should be used solely to remain consistent with code that is already indented with tabs.
 
-Maximum Line Length
--------------------
+## Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
@@ -79,8 +73,7 @@ Backslashes may still be appropriate at times. For example, long, multiple `with
         file_2.write(file_1.read())
 Another such case is with `assert` statements. Make sure to indent the continued line appropriately.
 
-Blank Lines
------------
+## Blank Lines
 
 Surround top-level function and class definitions with two blank lines.
 
@@ -88,8 +81,7 @@ Method definitions inside a class are surrounded by a single blank line.
 
 Extra blank lines may be used (sparingly) to separate groups of related functions.
 
-Imports
--------
+## Imports
 
 * Imports should usually be on separate lines, e.g.:
 
@@ -118,18 +110,15 @@ Imports
 
 * Wildcard imports (`from <module> import *`) should be avoided.
 
-String Quotes
-=============
+# String Quotes
 
 In Python, single-quoted strings and double-quoted strings are the same. This PEP does not make a recommendation for this. Pick a rule and stick to it.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
-Whitespace in Expressions and Statements
-========================================
+# Whitespace in Expressions and Statements
 
-Pet Peeves
-----------
+## Pet Peeves
 
 Avoid extraneous whitespace in the following situations:
 
@@ -197,7 +186,6 @@ Avoid extraneous whitespace in the following situations:
         y             = 2
         long_variable = 3
 
-
 * Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
 
     Yes:
@@ -258,15 +246,13 @@ Avoid extraneous whitespace in the following situations:
         
         if foo == 'blah': one(); two(); three()
 
-Comments
-========
+# Comments
 
 Comments that contradict the code are worse than no comments. Always make a priority of keeping the comments up-to-date when the code changes!
 
 Python coders from non-English speaking countries: please write your comments in English, unless you are 120% sure that the code will never be read by people who don’t speak your language.
 
-Inline Comments
----------------
+## Inline Comments
 
 Use inline comments sparingly.
 
@@ -282,8 +268,7 @@ But sometimes, this is useful:
 
     x = x + 1                 # Compensate for border
 
-Documentation Strings
----------------------
+## Documentation Strings
 
 Conventions for writing good documentation strings (a.k.a. “docstrings”) are immortalized in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
@@ -298,11 +283,9 @@ Conventions for writing good documentation strings (a.k.a. “docstrings”) are
 
 * For one liner docstrings, please keep the closing `"""` on the same line.
 
-Naming Conventions
-==================
+# Naming Conventions
 
-Descriptive: Naming Styles
---------------------------
+## Descriptive: Naming Styles
 
 The following naming styles are commonly distinguished:
 
@@ -330,8 +313,7 @@ In addition, the following special forms using leading or trailing underscores a
 
 * `__double_leading_and_trailing_underscore__`: “magic” objects or attributes that live in user-controlled namespaces. E.g. `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
 
-Prescriptive: Naming Conventions
---------------------------------
+## Prescriptive: Naming Conventions
 
 ### Names to Avoid
 
@@ -379,8 +361,7 @@ To avoid name clashes with subclasses, use two leading underscores to invoke Pyt
 
 Constants are usually defined on a module level and written in `UPPER_CASE_WITH_UNDERSCORES`.
 
-Programming Recommendations
-===========================
+# Programming Recommendations
 
 * Use `is not` operator rather than `not ... is`. While both expressions are functionally identical, the former is more readable and preferred.
 
@@ -496,7 +477,6 @@ Programming Recommendations
 
         if greeting is True:
 
-Function Annotations
---------------------
+## Function Annotations
 
 * In order to be forward compatible, function annotations in Python 3 code should preferably use [PEP 484](https://www.python.org/dev/peps/pep-0484/) syntax. (There are some formatting recommendations for annotations in the previous section.)
