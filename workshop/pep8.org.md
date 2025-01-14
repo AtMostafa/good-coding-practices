@@ -92,30 +92,30 @@ Imports
 -------
 
 *   Imports should usually be on separate lines, e.g.:
-    
+
     Yes:
-    
+
         import os
         import sys
-    
+
     No:
-    
+
         import os, sys
-    
+
     It’s okay to say this though:
-    
+
         from subprocess import Popen, PIPE
-    
+
 *   Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
-    
+
     Imports should be grouped in the following order:
-    
+
     1.  standard library imports
     2.  related third party imports
     3.  local application/library specific imports
-    
+
     You should put a blank line between each group of imports.
-    
+
 *   Wildcard imports (`from <module> import *`) should be avoided.
 
 String Quotes
@@ -134,113 +134,113 @@ Pet Peeves
 Avoid extraneous whitespace in the following situations:
 
 *   Immediately inside parentheses, brackets or braces:
-    
+
     Yes:
-    
+
         spam(ham[1], {eggs: 2})
-    
+
     No:
-    
+
         spam( ham[ 1 ], { eggs: 2 } )
-    
+
 *   Between a trailing comma and a following close parenthesis:
-    
+
     Yes:
-    
+
         foo = (0,)
-    
+
     No:
-    
+
         bar = (0, )
-    
+
 *   Immediately before a comma, semicolon, or colon:
-    
+
     Yes:
-    
+
         if x == 4: print x, y; x, y = y, x
-    
+
     No:
-    
+
         if x == 4 : print x , y ; x , y = y , x
         
 *   Immediately before the open parenthesis that starts the argument list of a function call:
-    
+
     Yes:
-    
+
         spam(1)
-    
+
     No:
-    
+
         spam (1)
-    
+
 *   Immediately before the open parenthesis that starts an indexing or slicing:
-    
+
     Yes:
-    
+
         dct['key'] = lst[index]
-    
+
     No:
-    
+
         dct ['key'] = lst [index]
-    
+
 *   __More than one__ space around an assignment (or other) operator to align it with another.
-    
+
     Yes:
-    
+
         x = 1
         y = 2
         long_variable = 3
-    
+
     No:
-    
+
         x             = 1
         y             = 2
         long_variable = 3
 
-    
+
 *   Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
-    
+
     Yes:
-    
+
         def complex(real, imag=0.0):
             return magic(r=real, i=imag)
-    
+
     No:
-    
+
         def complex(real, imag = 0.0):
             return magic(r = real, i = imag)
-    
+
 *   Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
 
     Yes:
-    
+
         def munge(input: AnyStr): ...
         def munge() -> AnyStr: ...
 
     No:
-    
+
         def munge(input:AnyStr): ...
         def munge()->PosInt: ...
 
 *   Compound statements (multiple statements on the same line) are generally discouraged.
-    
+
     Yes:
-    
+
         if foo == 'blah':
             do_blah_thing()
         do_one()
         do_two()
         do_three()
-    
+
     Rather not:
-    
+
         if foo == 'blah': do_blah_thing()
         do_one(); do_two(); do_three()
 
 *   While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
 
     Rather not:
-    
+
         if foo == 'blah': do_blah_thing()
         for x in lst: total += x
         while t < 10: t = delay()
@@ -316,8 +316,7 @@ The following naming styles are commonly distinguished:
 *   `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
 *   `Capitalized_Words_With_Underscores` (ugly!)
 
-**Note:**
-
+__Note:__
 
 In addition, the following special forms using leading or trailing underscores are recognized (these can generally be combined with any case convention):
 
@@ -384,65 +383,64 @@ Programming Recommendations
 ===========================
 
 *   Use `is not` operator rather than `not ... is`. While both expressions are functionally identical, the former is more readable and preferred.
-    
+
     Yes:
-    
+
         if foo is not None:
-    
+
     No:  
 
         if foo != None:
         if not foo is None:
 
 *   When implementing ordering operations with rich comparisons, it is best to implement all six operations (`__eq__`, `__ne__`, `__lt__`, `__le__`, `__gt__`, `__ge__`) rather than relying on other code to only exercise a particular comparison.
-    
+
 *   Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
-    
+
     Yes:
-    
+
         def f(x): return 2*x
-    
+
     No:
-    
+
         f = lambda x: 2*x
 
 *   When catching exceptions, mention specific exceptions whenever possible instead of using a bare `except:` clause.
-    
+
     For example, use:
-    
+
         try:
             import platform_specific_module
         except ImportError:
             platform_specific_module = None
 
     Not:
-    
+
         try:
             import platform_specific_module
         except Exception:
             platform_specific_module = None
 
-
 *   When binding caught exceptions to a name, prefer the explicit name binding syntax added in Python 2.6:
-    
+
         try:
             process_data()
         except Exception as exc:
             raise DataProcessingFailedError(str(exc))
 
 *   Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
-    
+
     Yes:
-    
+
         try:
             value = collection[key]
         except KeyError:
             return key_not_found(key)
         else:
             return handle_value(value)
-    
+
     No:
-    
+
         try:
             # Too broad!
             return handle_value(collection[key])
@@ -453,23 +451,23 @@ Programming Recommendations
 *   Use `''.startswith()` and `''.endswith()` instead of string slicing to check for prefixes or suffixes.
 
     `startswith()` and `endswith()` are cleaner and less error prone. For example:
-    
+
     Yes:
-    
+
         if foo.startswith('bar'):
-    
+
     No:
-    
+
         if foo[:3] == 'bar':
 
 *   Object type comparisons should always use `isinstance()` instead of comparing types directly:
-    
+
     Yes:
-    
+
         if isinstance(obj, int):
-    
+
     No:
-    
+
         if type(obj) is type(1):
 
 *   For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
