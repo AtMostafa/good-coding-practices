@@ -1,9 +1,8 @@
 ---
-marp: false
+marp: true
 size: 16:9
 theme: default
 paginate: true
-
 ---
 
 # PEP 8 — the Style Guide for Python Code  
@@ -71,6 +70,8 @@ Spaces are the preferred indentation method.
 
 Tabs should be used solely to remain consistent with code that is already indented with tabs.
 
+---
+
 ## Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
@@ -82,6 +83,8 @@ Backslashes may still be appropriate at times. For example, long, multiple `asse
     assert isinstance(some_input, int), \
         f"Wrong input format, expected `int` but got {type(some_input)} instead."
 
+---
+
 ## Blank Lines
 
 Surround top-level function and class definitions with two blank lines.
@@ -89,6 +92,8 @@ Surround top-level function and class definitions with two blank lines.
 Method definitions inside a class are surrounded by a single blank line.
 
 Extra blank lines may be used (sparingly) to separate groups of related functions.
+
+---
 
 ## Imports
 
@@ -107,6 +112,8 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
         from subprocess import Popen, PIPE
 
+---
+
 * Imports are always put at the top of the file, just after module docstring, and before module globals and constants.
 
     Imports should be grouped in the following order:
@@ -119,12 +126,16 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 * Wildcard imports (`from <module> import *`) should be avoided.
 
+---
+
 # String Quotes
 
 In Python, single-quoted strings and double-quoted strings are the same. We do not make a recommendation for this.
 Pick a rule and __stick to it__.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
+
+---
 
 # Whitespace in Expressions and Statements
 
@@ -142,6 +153,8 @@ Avoid extraneous whitespace in the following situations:
 
         spam( ham[ 1 ], { eggs: 2 } )
 
+---
+
 * Between a trailing comma and a following close parenthesis:
 
     Yes:
@@ -152,6 +165,8 @@ Avoid extraneous whitespace in the following situations:
 
         bar = (0, )
 
+---
+
 * Immediately before a comma, semicolon, or colon:
 
     Yes:
@@ -161,7 +176,9 @@ Avoid extraneous whitespace in the following situations:
     No:
 
         if x == 4 : print x , y ; x , y = y , x
-        
+
+---
+
 * Immediately before the open parenthesis that starts the argument list of a function call:
 
     Yes:
@@ -172,6 +189,8 @@ Avoid extraneous whitespace in the following situations:
 
         spam (1)
 
+---
+
 * Immediately before the open parenthesis that starts an indexing or slicing:
 
     Yes:
@@ -181,6 +200,8 @@ Avoid extraneous whitespace in the following situations:
     No:
 
         dct ['key'] = lst [index]
+
+---
 
 * __More than one__ space around an assignment (or other) operator to align it with another.
 
@@ -196,6 +217,8 @@ Avoid extraneous whitespace in the following situations:
         y             = 2
         long_variable = 3
 
+---
+
 * Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
 
     Yes:
@@ -208,6 +231,8 @@ Avoid extraneous whitespace in the following situations:
         def complex(real, imag = 0.0):
             return magic(r = real, i = imag)
 
+---
+
 * Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
 
     Yes:
@@ -219,6 +244,8 @@ Avoid extraneous whitespace in the following situations:
 
         def munge(input:AnyStr): ...
         def munge()->PosInt: ...
+
+---
 
 * Compound statements (multiple statements on the same line) are generally discouraged.
 
@@ -235,6 +262,8 @@ Avoid extraneous whitespace in the following situations:
         if foo == 'blah': do_blah_thing()
         do_one(); do_two(); do_three()
 
+---
+
 * While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
 
     Rather not:
@@ -242,6 +271,8 @@ Avoid extraneous whitespace in the following situations:
         if foo == 'blah': do_blah_thing()
         for x in lst: total += x
         while t < 10: t = delay()
+
+---
 
     Definitely not:
 
@@ -256,11 +287,15 @@ Avoid extraneous whitespace in the following situations:
         
         if foo == 'blah': one(); two(); three()
 
+---
+
 # Comments
 
 Comments that contradict the code are worse than no comments. Always make a priority of keeping the comments up-to-date when the code changes!
 
 Python coders from non-English speaking countries: please write your comments in English, unless you are 120% sure that the code will never be read by people who don’t speak your language.
+
+---
 
 ## Inline Comments
 
@@ -269,6 +304,8 @@ Use inline comments sparingly.
 An inline comment is a comment on the same line as a statement. Inline comments should be separated by at least two spaces from the statement. They should start with a # and a single space.
 
     some_code()  # correct spacing for inline comments
+
+---
 
 ## Documentation Strings
 
@@ -285,11 +322,15 @@ Conventions for writing good documentation strings (a.k.a. “docstrings”) are
 
 * For one liner docstrings, please keep the closing `"""` on the same line.
 
+---
+
 # Naming Conventions
 
 ## Descriptive: Naming Styles
 
 The following naming styles are commonly distinguished:
+
+---
 
 * `b` (single lowercase letter)
 * `B` (single uppercase letter)
@@ -300,6 +341,8 @@ The following naming styles are commonly distinguished:
 * `CapitalizedWords` (or CapWords, CamelCase, StudlyCaps)
 * `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
 * `Capitalized_Words_With_Underscores` (ugly!)
+
+---
 
 __Note:__
 
@@ -313,15 +356,30 @@ __Note:__
 
 * `__double_leading_and_trailing_underscore__`: “magic” objects or attributes, e.g., `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
 
+---
+
 ## Prescriptive: Naming Conventions
 
 ### Names to Avoid
 
 Never use the characters ‘l’ (lowercase letter el), ‘O’ (uppercase letter oh), or ‘I’ (uppercase letter eye) as single character variable names.
 
+---
+
+### Variable Names
+
+Use `lower_case_with_underscores`. Always use meaningful names. Allow a 3rd person reading your code to understand.
+    Do not use:
+
+        a = 0
+        temp = ""
+        for i in my_list:
+
 ### Package and Module Names
 
 Modules should have short, all-lowercase names. Underscores can be used in the module name if it improves readability.
+
+---
 
 ### Class Names
 
@@ -337,6 +395,8 @@ The `mixedCase` is allowed only to retain backwards compatibility.
 
 Names of type variables introduced in PEP 484 should normally use `CapitalizedWords` preferring short names: `T`, `AnyStr`, `Num`.
 
+---
+
 ### Global Variable Names
 
 (Let’s hope that these variables are meant for use inside one module only.) The conventions are about the same as those for functions.
@@ -351,6 +411,8 @@ Always use `cls` for the first argument to class methods.
 
 If a function argument’s name clashes with a reserved keyword, it is generally better to append a single trailing underscore. Thus `class_` is better than `clss`. (Perhaps better is to avoid such clashes by using a synonym.)
 
+---
+
 ### Method Names and Instance Variables
 
 Use the function naming rules: `lower_case_with_underscores` as necessary to improve readability.
@@ -362,6 +424,8 @@ To avoid name clashes with subclasses, use two leading underscores to invoke Pyt
 ### Constants
 
 Constants are usually defined on a module level and written in `UPPER_CASE_WITH_UNDERSCORES`.
+
+---
 
 # Programming Recommendations
 
@@ -376,6 +440,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
         if foo != None:
         if not foo is None:
 
+---
+
 * When implementing ordering operations with rich comparisons, it is best to implement all six operations (`__eq__`, `__ne__`, `__lt__`, `__le__`, `__gt__`, `__ge__`) rather than relying on other code to only exercise a particular comparison.
 
 * Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
@@ -387,6 +453,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
     No:
 
         f = lambda x: 2*x
+
+---
 
 * When catching exceptions, mention specific exceptions whenever possible.
 
@@ -404,6 +472,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
         except Exception:
             platform_specific_module = None
 
+---
+
 * Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
 
     Yes:
@@ -415,6 +485,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
         else:
             return handle_value(value)
 
+---
+
     No:
 
         try:
@@ -423,6 +495,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
         except KeyError:
             # Will also catch KeyError raised by handle_value()
             return key_not_found(key)
+
+---
 
 * Use `''.startswith()` and `''.endswith()` instead of string slicing.
 
@@ -436,6 +510,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
         if foo[:3] == 'bar':
 
+---
+
 * Object type comparisons should always use `isinstance()` instead of comparing types directly:
 
     Yes:
@@ -445,6 +521,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
     No:
 
         if type(obj) is type(1):
+
+---
 
 * For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
 
@@ -457,6 +535,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
         if len(seq):
         if not len(seq):
+
+---
 
 * Don’t compare _boolean values_ to True or False using `==`:
 
@@ -472,6 +552,11 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
         if greeting is True:
 
-## Function Annotations
+---
 
-* In order to be forward compatible, function annotations in Python 3 code should preferably use [PEP 484](https://www.python.org/dev/peps/pep-0484/) syntax. (There are some formatting recommendations for annotations in the previous section.)
+# Got questions on the go?
+
+Consult:
+* PEP8 online
+* Use automatic linters and formatter in _vscode_, e.g., `ruff`
+  
