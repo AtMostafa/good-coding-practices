@@ -91,7 +91,7 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 Imports
 -------
 
-*   Imports should usually be on separate lines, e.g.:
+* Imports should usually be on separate lines, e.g.:
 
     Yes:
 
@@ -106,17 +106,17 @@ Imports
 
         from subprocess import Popen, PIPE
 
-*   Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
+* Imports are always put at the top of the file, just after any module comments and docstrings, and before module globals and constants.
 
     Imports should be grouped in the following order:
 
-    1.  standard library imports
-    2.  related third party imports
-    3.  local application/library specific imports
+    1. standard library imports
+    2. related third party imports
+    3. local application/library specific imports
 
     You should put a blank line between each group of imports.
 
-*   Wildcard imports (`from <module> import *`) should be avoided.
+* Wildcard imports (`from <module> import *`) should be avoided.
 
 String Quotes
 =============
@@ -133,7 +133,7 @@ Pet Peeves
 
 Avoid extraneous whitespace in the following situations:
 
-*   Immediately inside parentheses, brackets or braces:
+* Immediately inside parentheses, brackets or braces:
 
     Yes:
 
@@ -143,7 +143,7 @@ Avoid extraneous whitespace in the following situations:
 
         spam( ham[ 1 ], { eggs: 2 } )
 
-*   Between a trailing comma and a following close parenthesis:
+* Between a trailing comma and a following close parenthesis:
 
     Yes:
 
@@ -153,7 +153,7 @@ Avoid extraneous whitespace in the following situations:
 
         bar = (0, )
 
-*   Immediately before a comma, semicolon, or colon:
+* Immediately before a comma, semicolon, or colon:
 
     Yes:
 
@@ -163,7 +163,7 @@ Avoid extraneous whitespace in the following situations:
 
         if x == 4 : print x , y ; x , y = y , x
         
-*   Immediately before the open parenthesis that starts the argument list of a function call:
+* Immediately before the open parenthesis that starts the argument list of a function call:
 
     Yes:
 
@@ -173,7 +173,7 @@ Avoid extraneous whitespace in the following situations:
 
         spam (1)
 
-*   Immediately before the open parenthesis that starts an indexing or slicing:
+* Immediately before the open parenthesis that starts an indexing or slicing:
 
     Yes:
 
@@ -183,7 +183,7 @@ Avoid extraneous whitespace in the following situations:
 
         dct ['key'] = lst [index]
 
-*   __More than one__ space around an assignment (or other) operator to align it with another.
+* __More than one__ space around an assignment (or other) operator to align it with another.
 
     Yes:
 
@@ -198,7 +198,7 @@ Avoid extraneous whitespace in the following situations:
         long_variable = 3
 
 
-*   Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
+* Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
 
     Yes:
 
@@ -210,7 +210,7 @@ Avoid extraneous whitespace in the following situations:
         def complex(real, imag = 0.0):
             return magic(r = real, i = imag)
 
-*   Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
+* Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
 
     Yes:
 
@@ -222,7 +222,7 @@ Avoid extraneous whitespace in the following situations:
         def munge(input:AnyStr): ...
         def munge()->PosInt: ...
 
-*   Compound statements (multiple statements on the same line) are generally discouraged.
+* Compound statements (multiple statements on the same line) are generally discouraged.
 
     Yes:
 
@@ -237,7 +237,7 @@ Avoid extraneous whitespace in the following situations:
         if foo == 'blah': do_blah_thing()
         do_one(); do_two(); do_three()
 
-*   While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
+* While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
 
     Rather not:
 
@@ -287,16 +287,16 @@ Documentation Strings
 
 Conventions for writing good documentation strings (a.k.a. “docstrings”) are immortalized in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
-*   Write docstrings for all public modules, functions, classes, and methods.
+* Write docstrings for all public modules, functions, classes, and methods.
 
-*   The `"""` that ends a multiline docstring should be on a line by itself, e.g.:
-    
+* The `"""` that ends a multiline docstring should be on a line by itself, e.g.:
+
         """Return an array
         
         Optional plots something something something.
         """
 
-*   For one liner docstrings, please keep the closing `"""` on the same line.
+* For one liner docstrings, please keep the closing `"""` on the same line.
 
 Naming Conventions
 ==================
@@ -306,29 +306,29 @@ Descriptive: Naming Styles
 
 The following naming styles are commonly distinguished:
 
-*   `b` (single lowercase letter)
-*   `B` (single uppercase letter)
-*   `lowercase`
-*   `lower_case_with_underscores`
-*   `UPPERCASE`
-*   `UPPER_CASE_WITH_UNDERSCORES`
-*   `CapitalizedWords` (or CapWords, CamelCase, StudlyCaps)
-*   `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
-*   `Capitalized_Words_With_Underscores` (ugly!)
+* `b` (single lowercase letter)
+* `B` (single uppercase letter)
+* `lowercase`
+* `lower_case_with_underscores`
+* `UPPERCASE`
+* `UPPER_CASE_WITH_UNDERSCORES`
+* `CapitalizedWords` (or CapWords, CamelCase, StudlyCaps)
+* `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
+* `Capitalized_Words_With_Underscores` (ugly!)
 
 __Note:__
 
 In addition, the following special forms using leading or trailing underscores are recognized (these can generally be combined with any case convention):
 
-*   `_single_leading_underscore`: weak “internal use” indicator. E.g. `from M import *` does not import objects whose name starts with an underscore.
+* `_single_leading_underscore`: weak “internal use” indicator. E.g. `from M import *` does not import objects whose name starts with an underscore.
 
-*   `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
-    
+* `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
+
         Tkinter.Toplevel(master, class_='ClassName')
-    
-*   `__double_leading_underscore`: when naming a class attribute, invokes name mangling (inside class FooBar, `__boo` becomes `_FooBar__boo`; see below).
 
-*   `__double_leading_and_trailing_underscore__`: “magic” objects or attributes that live in user-controlled namespaces. E.g. `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
+* `__double_leading_underscore`: when naming a class attribute, invokes name mangling (inside class FooBar, `__boo` becomes `_FooBar__boo`; see below).
+
+* `__double_leading_and_trailing_underscore__`: “magic” objects or attributes that live in user-controlled namespaces. E.g. `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
 
 Prescriptive: Naming Conventions
 --------------------------------
@@ -382,7 +382,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 Programming Recommendations
 ===========================
 
-*   Use `is not` operator rather than `not ... is`. While both expressions are functionally identical, the former is more readable and preferred.
+* Use `is not` operator rather than `not ... is`. While both expressions are functionally identical, the former is more readable and preferred.
 
     Yes:
 
@@ -393,9 +393,9 @@ Programming Recommendations
         if foo != None:
         if not foo is None:
 
-*   When implementing ordering operations with rich comparisons, it is best to implement all six operations (`__eq__`, `__ne__`, `__lt__`, `__le__`, `__gt__`, `__ge__`) rather than relying on other code to only exercise a particular comparison.
+* When implementing ordering operations with rich comparisons, it is best to implement all six operations (`__eq__`, `__ne__`, `__lt__`, `__le__`, `__gt__`, `__ge__`) rather than relying on other code to only exercise a particular comparison.
 
-*   Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
+* Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
 
     Yes:
 
@@ -405,7 +405,7 @@ Programming Recommendations
 
         f = lambda x: 2*x
 
-*   When catching exceptions, mention specific exceptions whenever possible instead of using a bare `except:` clause.
+* When catching exceptions, mention specific exceptions whenever possible instead of using a bare `except:` clause.
 
     For example, use:
 
@@ -421,14 +421,14 @@ Programming Recommendations
         except Exception:
             platform_specific_module = None
 
-*   When binding caught exceptions to a name, prefer the explicit name binding syntax added in Python 2.6:
+* When binding caught exceptions to a name, prefer the explicit name binding syntax added in Python 2.6:
 
         try:
             process_data()
         except Exception as exc:
             raise DataProcessingFailedError(str(exc))
 
-*   Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
+* Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
 
     Yes:
 
@@ -448,7 +448,7 @@ Programming Recommendations
             # Will also catch KeyError raised by handle_value()
             return key_not_found(key)
 
-*   Use `''.startswith()` and `''.endswith()` instead of string slicing to check for prefixes or suffixes.
+* Use `''.startswith()` and `''.endswith()` instead of string slicing to check for prefixes or suffixes.
 
     `startswith()` and `endswith()` are cleaner and less error prone. For example:
 
@@ -460,7 +460,7 @@ Programming Recommendations
 
         if foo[:3] == 'bar':
 
-*   Object type comparisons should always use `isinstance()` instead of comparing types directly:
+* Object type comparisons should always use `isinstance()` instead of comparing types directly:
 
     Yes:
 
@@ -470,7 +470,7 @@ Programming Recommendations
 
         if type(obj) is type(1):
 
-*   For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
+* For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
 
     Yes:
 
@@ -482,7 +482,7 @@ Programming Recommendations
         if len(seq):
         if not len(seq):
 
-*   Don’t compare _boolean values_ to True or False using `==`:
+* Don’t compare _boolean values_ to True or False using `==`:
 
     Yes:
 
@@ -499,4 +499,4 @@ Programming Recommendations
 Function Annotations
 --------------------
 
-*   In order to be forward compatible, function annotations in Python 3 code should preferably use [PEP 484](https://www.python.org/dev/peps/pep-0484/) syntax. (There are some formatting recommendations for annotations in the previous section.)
+* In order to be forward compatible, function annotations in Python 3 code should preferably use [PEP 484](https://www.python.org/dev/peps/pep-0484/) syntax. (There are some formatting recommendations for annotations in the previous section.)
