@@ -3,12 +3,13 @@ import matplotlib
 import numpy as np
 
 
-
 repoPath = pathlib.Path.cwd()
 root = pathlib.Path("/data")
 figPath = repoPath / "figures"
 LargeFig = (7, 8)
 MedFig = (4.3, 4.3)
+
+from monkey import defs as monkey_defs
 
 rng = np.random.default_rng(np.random.SeedSequence(12345))
 n_iter = 100
