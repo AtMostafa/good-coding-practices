@@ -14,7 +14,6 @@ import pyaldata as pyal
 from sklearn.decomposition import PCA
 from scipy.spatial import procrustes
 import logging
-import torch
 
 from tools import dataTools as dt
 from tools import utilityTools as utility

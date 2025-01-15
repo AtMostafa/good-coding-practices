@@ -371,7 +371,7 @@ def get_example_monkey_data(epoch=None):
     raster_example = monkey_defs.raster_example
     raster_example_df = []
     for session in raster_example:
-        path = params.root / session.split("_")[0] / session
+        path = params.root / session
         df = monkey_defs.prep_general(load_pyal_data(path))
         if epoch is not None:
             df = pyal.restrict_to_interval(df, epoch_fun=epoch)

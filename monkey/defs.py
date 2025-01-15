@@ -3,7 +3,7 @@ import pyaldata as pyal
 
 rng = np.random.default_rng(np.random.SeedSequence(12345))
 
-raster_example = ('Chewie_CO_FF_2016-10-13.p', 'Mihili_CO_VR_2014-03-03.p')
+raster_example = ('Chewie_CO_FF_2016-10-13.mat', 'Mihili_CO_VR_2014-03-03.mat')
 MAX_HISTORY = 3  #int: no of bins to be added as history
 BIN_SIZE = .03  # sec
 WINDOW_prep = (-.4, .05)  # sec
