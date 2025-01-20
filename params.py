@@ -34,7 +34,7 @@ def set_rc_params(dictArg: dict = {}):
     matplotlib.rcParams["font.serif"] = "Helvetica"
     matplotlib.rcParams["legend.frameon"] = False
     matplotlib.rcParams["legend.fancybox"] = False
-    matplotlib.rcParams["figure.dpi"] = 600
+    matplotlib.rcParams["figure.dpi"] = 300
 
     for key, val in dictArg.items():
         matplotlib.rcParams[key] = val
