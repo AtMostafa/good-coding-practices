@@ -5,6 +5,7 @@ import numpy as np
 
 repoPath = pathlib.Path.cwd()
 root = pathlib.Path(r"C:\data\monkey-data")
+# root_4_linux = pathlib.Path("/data/monkey-data")
 figPath = repoPath / "figures"
 LargeFig = (7, 8)
 MedFig = (4.3, 4.3)
