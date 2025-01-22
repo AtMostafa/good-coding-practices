@@ -558,5 +558,5 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 Consult:
 * PEP8 online
-* Use automatic linters and formatter in _vscode_, e.g., `ruff`
+* Use automatic linters and formatter in _vscode_, e.g., `pylance` and `ruff`.
   
