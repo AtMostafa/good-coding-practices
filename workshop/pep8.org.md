@@ -148,7 +148,7 @@ For triple-quoted strings, always use double quote characters to be consistent w
 
 Avoid extraneous whitespace in the following situations:
 
-* Immediately inside parentheses, brackets or braces:
+- Immediately inside parentheses, brackets or braces:
 
     Yes:
 
@@ -160,7 +160,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Between a trailing comma and a following close parenthesis:
+- Between a trailing comma and a following close parenthesis:
 
     Yes:
 
@@ -172,7 +172,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Immediately before a comma, semicolon, or colon:
+- Immediately before a comma, semicolon, or colon:
 
     Yes:
 
@@ -184,7 +184,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Immediately before the open parenthesis that starts the argument list of a function call:
+- Immediately before the open parenthesis that starts the argument list of a function call:
 
     Yes:
 
@@ -196,7 +196,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Immediately before the open parenthesis that starts an indexing or slicing:
+- Immediately before the open parenthesis that starts an indexing or slicing:
 
     Yes:
 
@@ -208,7 +208,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* __More than one__ space around an assignment (or other) operator to align it with another.
+- **More than one** space around an assignment (or other) operator to align it with another.
 
     Yes:
 
@@ -224,7 +224,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
+- Don’t use spaces around the `=` sign when used to indicate a keyword argument or a default parameter value.
 
     Yes:
 
@@ -238,7 +238,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
+- Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
 
     Yes:
 
@@ -252,7 +252,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* Compound statements (multiple statements on the same line) are generally discouraged.
+- Compound statements (multiple statements on the same line) are generally discouraged.
 
     Yes:
 
@@ -269,7 +269,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-* While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
+- While sometimes it’s okay to put an if/for/while with a small body on the same line, never do this for multi-clause statements.
 
     Rather not:
 
