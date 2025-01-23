@@ -7,19 +7,23 @@ paginate: true
 
 # PEP 8 — the Style Guide for Python Code  
 
-This material is based on the [pep8.org](https://pep8.org/) website.
-
-This is a stylized presentation of the well-established [PEP 8](https://www.python.org/dev/peps/pep-0008/).
+Dased on the [pep8.org](https://pep8.org/) website.
 
 ---
 
 # Introduction
 
-This style guide evolves over time as additional conventions are identified and past conventions are rendered obsolete by changes in the language itself.
+PEP8 evolves over time.
 
-Code is read much more often than it is written. The guidelines provided here are intended to improve the readability of code.
+Code is read much more often than it is written.
 
-A style guide is about consistency. Consistency with this style guide is important. Consistency within a project is more important. Consistency within one module or function is the most important.
+Intention: to improve the readability of code.
+
+A style guide is about consistency. Consistency:
+
+- with this guide is **important**.
+- within a project is  **more important**.
+- within one module or function is the **most important**.
 
 ---
 
@@ -27,7 +31,11 @@ A style guide is about consistency. Consistency with this style guide is importa
 
 ## Indentation
 
-Use 4 spaces per indentation level.
+Use **4 spaces** per indentation level.
+
+## Tabs or Spaces?
+
+Spaces are the preferred indentation method.
 
 ---
 
@@ -64,21 +72,18 @@ No:
 
 ---
 
-## Tabs or Spaces?
-
-Spaces are the preferred indentation method.
-
-Tabs should be used solely to remain consistent with code that is already indented with tabs.
-
----
-
 ## Maximum Line Length
 
 Limit all lines to a maximum of 79 characters.
 
-The preferred way of wrapping long lines is by using Python’s implied line continuation inside parentheses, brackets and braces. Long lines can be broken over multiple lines by wrapping expressions in parentheses. These should be used in preference to using a backslash for line continuation.
+The preferred way of wrapping long lines:
 
-Backslashes may still be appropriate at times. For example, long, multiple `assert`\-statements:
+- line continuation inside parentheses, brackets and braces.
+- broken over multiple lines by wrapping expressions in parentheses.
+
+These should be used in preference to using a backslash for line continuation.
+
+But OK sometimes:
 
     assert isinstance(some_input, int), \
         f"Wrong input format, expected `int` but got {type(some_input)} instead."
@@ -97,7 +102,7 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 ## Imports
 
-* Imports should usually be on separate lines, e.g.:
+- Imports should usually be on separate lines, e.g.:
 
     Yes:
 
@@ -114,24 +119,24 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 ---
 
-* Imports are always put at the top of the file, just after module docstring, and before module globals and constants.
+- Imports are always put at the top of the file, just after module docstring, and before module globals and constants.
 
-    Imports should be grouped in the following order:
+- Imports should be grouped in the following order:
 
     1. standard library imports, e.g., `import os`
-    2. related third party imports, e.g., `import numpy`
-    3. local application/library specific imports, e.g., `from submodule/helper_functions import some_function`
+    1. related third party imports, e.g., `import numpy`
+    1. local application/library specific imports, e.g., `from submodule/helper_functions import some_function`
 
     You should put a blank line between each group of imports.
 
-* Wildcard imports (`from <module> import *`) should be avoided.
+- Wildcard imports (`from <module> import *`) should be avoided.
 
 ---
 
 # String Quotes
 
-In Python, single-quoted strings and double-quoted strings are the same. We do not make a recommendation for this.
-Pick a rule and __stick to it__.
+Single-quoted strings (`'this'`) and double-quoted strings (`"this"`) are the same. We do not make a recommendation for this.
+Pick a rule and **stick to it**.
 
 For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
 
