@@ -100,6 +100,18 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 ---
 
+## Code Order
+
+Every python file should be organized in the following order:
+
+- docstring
+- imports
+- global and constant variables
+- function and class definitions
+- perhaps a `if __name__ == "__main__":` block for tests, etc.
+
+---
+
 ## Imports
 
 - Imports should usually be on separate lines, e.g.:
@@ -119,8 +131,6 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 ---
 
-- Imports are always put at the top of the file, just after module docstring, and before module globals and constants.
-
 - Imports should be grouped in the following order:
 
     1. standard library imports, e.g., `import os`
@@ -135,10 +145,10 @@ Extra blank lines may be used (sparingly) to separate groups of related function
 
 # String Quotes
 
-Single-quoted strings (`'this'`) and double-quoted strings (`"this"`) are the same. We do not make a recommendation for this.
+Single-quoted strings (`'this'`) and double-quoted strings (`"this"`) are the same. No recommendation for this.
 Pick a rule and **stick to it**.
 
-For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/).
+For triple-quoted strings, always use double quote characters to be consistent with the docstring convention in [PEP 257](https://www.python.org/dev/peps/pep-0257/) (`"""this"""`).
 
 ---
 
@@ -370,30 +380,30 @@ The following naming styles are commonly distinguished:
 
 ---
 
-* `b` (single lowercase letter)
-* `B` (single uppercase letter)
-* `lowercase`
-* `lower_case_with_underscores`
-* `UPPERCASE`
-* `UPPER_CASE_WITH_UNDERSCORES`
-* `CapitalizedWords` (or CapWords, CamelCase, StudlyCaps)
-* `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
-* `Capitalized_Words_With_Underscores` (ugly!)
+- `b` (single lowercase letter)
+- `B` (single uppercase letter)
+- `lowercase`
+- `lower_case_with_underscores`
+- `UPPERCASE`
+- `UPPER_CASE_WITH_UNDERSCORES`
+- `CapitalizedWords` (or CapWords, CamelCase, StudlyCaps)
+- `mixedCase` (differs from CapitalizedWords by initial lowercase character!)
+- `Capitalized_Words_With_Underscores` (ugly!)
 
 ---
 
-__Note:__
+**Note:**
 
-* `_single_leading_underscore`: weak “internal use” indicator.  
+- `_single_leading_underscore`: weak “internal use” indicator.  
 `from M import *` does not import objects whose name starts with an underscore.
 
-* `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
+- `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
 
         int_ = input("please enter an int")
 
-* `__double_leading_underscore`: when naming a class attribute, invokes _name mangling_ (inside class FooBar, `__boo` becomes `_FooBar__boo`).
+- `__double_leading_underscore`: when naming a class attribute, invokes _name mangling_ (inside class FooBar, `__boo` becomes `_FooBar__boo`).
 
-* `__double_leading_and_trailing_underscore__`: “magic” objects or attributes, e.g., `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
+- `__double_leading_and_trailing_underscore__`: “magic” objects or attributes, e.g., `__init__`, `__import__` or `__file__`. Never invent such names; only use them as documented.
 
 ---
 
@@ -591,6 +601,6 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 Consult:
 
 - The PEP8 online.
-- Use automatic linters and formatter in _vscode_, e.g., `pylance` and `ruff`.
+- Use automatic linters and formatter in _vscode_, e.g., *pylance* and *ruff*.
 - Check out code written by professionals.
   
