@@ -236,9 +236,12 @@ Avoid extraneous whitespace in the following situations:
         def complex(real, imag = 0.0):
             return magic(r = real, i = imag)
 
+You might find that some automatic formatters/linters disagree!
+
 ---
 
-- Function annotations should use the normal rules for colons and always have spaces around the `->` arrow if present.
+- Function annotations should use the normal rules for colons.  
+- Always have spaces around the `->` arrow if present.
 
     Yes:
 
@@ -279,7 +282,7 @@ Avoid extraneous whitespace in the following situations:
 
 ---
 
-    Definitely not:
+Definitely not:
 
         if foo == 'blah': do_blah_thing()
         else: do_non_blah_thing()
@@ -296,7 +299,8 @@ Avoid extraneous whitespace in the following situations:
 
 # Comments
 
-Comments that contradict the code are worse than no comments. Always make a priority of keeping the comments up-to-date when the code changes!
+Comments that contradict the code are worse than no comments.
+Always make a priority of keeping the comments up-to-date!
 
 Python coders from non-English speaking countries: please write your comments in English, unless you are 120% sure that the code will never be read by people who don’t speak your language.
 
@@ -329,6 +333,35 @@ Conventions for writing good documentation strings (a.k.a. “docstrings”) are
 
 ---
 
+Example: docstring of `numpy.ndim()`. Check it out for yourself: `numpy.ndim.__doc__`
+
+    """
+    Return the number of dimensions of an array.
+
+    Parameters
+    ----------
+    a : array_like
+        Input array.  If it is not already an ndarray, a conversion is attempted.
+
+    Returns
+    -------
+    number_of_dimensions : int
+        The number of dimensions in `a`.  Scalars are zero-dimensional.
+
+    See Also
+    --------
+    ndarray.ndim : equivalent method
+
+    Examples
+    --------
+    >>> np.ndim([[1,2,3],[4,5,6]])
+    2
+    >>> np.ndim(1)
+    0
+    """
+
+---
+
 # Naming Conventions
 
 ## Descriptive: Naming Styles
@@ -351,7 +384,8 @@ The following naming styles are commonly distinguished:
 
 __Note:__
 
-* `_single_leading_underscore`: weak “internal use” indicator. E.g. `from M import *` does not import objects whose name starts with an underscore.
+* `_single_leading_underscore`: weak “internal use” indicator.  
+`from M import *` does not import objects whose name starts with an underscore.
 
 * `single_trailing_underscore_`: used by convention to avoid conflicts with Python keyword, e.g.:
 
@@ -396,7 +430,7 @@ Function names should be `lower_case_with_underscores`.
 
 The `mixedCase` is allowed only to retain backwards compatibility.
 
-### Type variable names
+### Type variable names (annotations)
 
 Names of type variables introduced in PEP 484 should normally use `CapitalizedWords` preferring short names: `T`, `AnyStr`, `Num`.
 
@@ -404,7 +438,9 @@ Names of type variables introduced in PEP 484 should normally use `CapitalizedWo
 
 ### Global Variable Names
 
-(Let’s hope that these variables are meant for use inside one module only.) The conventions are about the same as those for functions.
+(Let’s hope that these variables are meant for use inside one module only.)  
+Function names should be `lower_case_with_underscores`.  
+The `mixedCase` is allowed only to retain backwards compatibility.
 
 ### Function and method arguments
 
@@ -414,7 +450,8 @@ Always use `self` for the first argument to instance methods.
 
 Always use `cls` for the first argument to class methods.
 
-If a function argument’s name clashes with a reserved keyword, it is generally better to append a single trailing underscore. Thus `class_` is better than `clss`. (Perhaps better is to avoid such clashes by using a synonym.)
+If a function argument’s name clashes with a reserved keyword: append a single trailing underscore.  
+Thus `class_` is better than `clss`. (Perhaps better is to avoid such clashes by using a synonym.)
 
 ---
 
@@ -424,8 +461,6 @@ Use the function naming rules: `lower_case_with_underscores` as necessary to imp
 
 Use one leading underscore only for non-public methods and instance variables.
 
-To avoid name clashes with subclasses, use two leading underscores to invoke Python’s name mangling rules.
-
 ### Constants
 
 Constants are usually defined on a module level and written in `UPPER_CASE_WITH_UNDERSCORES`.
@@ -434,7 +469,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 # Programming Recommendations
 
-* Use `is not` operator rather than `not ... is`. While both expressions are functionally identical, the former is more readable and preferred.
+- Use the `is not` operator rather than `not ... is`.
 
     Yes:
 
@@ -447,9 +482,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* When implementing ordering operations with rich comparisons, it is best to implement all six operations (`__eq__`, `__ne__`, `__lt__`, `__le__`, `__gt__`, `__ge__`) rather than relying on other code to only exercise a particular comparison.
-
-* Always use a def statement instead of an assignment statement that binds a lambda expression directly to an identifier.
+- Always use a `def` statement instead of an assignment statement that binds a `lambda` expression directly to an identifier.
 
     Yes:
 
@@ -461,7 +494,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* When catching exceptions, mention specific exceptions whenever possible.
+- When catching exceptions, mention specific exceptions whenever possible.
 
     Use:
 
@@ -479,7 +512,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* Limit the `try` clause to the absolute minimum amount of code necessary. Again, this avoids masking bugs.
+- Limit the `try` clause to the absolute minimum amount of code. Do not let errors disappear silently.
 
     Yes:
 
@@ -490,22 +523,16 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
         else:
             return handle_value(value)
 
----
-
     No:
 
         try:
-            # Too broad!
-            return handle_value(collection[key])
+            return handle_value(collection[key])  # Too broad!
         except KeyError:
-            # Will also catch KeyError raised by handle_value()
             return key_not_found(key)
 
 ---
 
-* Use `''.startswith()` and `''.endswith()` instead of string slicing.
-
-    `startswith()` and `endswith()` are cleaner and less error prone. For example:
+- Use `''.startswith()` and `''.endswith()` instead of string slicing.
 
     Yes:
 
@@ -517,7 +544,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* Object type comparisons should always use `isinstance()` instead of comparing types directly:
+- Object type comparisons should always use `isinstance()` instead of comparing types directly:
 
     Yes:
 
@@ -529,7 +556,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
+- For sequences, (strings, lists, tuples), use the fact that empty sequences are false:
 
     Yes:
 
@@ -543,7 +570,7 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 
 ---
 
-* Don’t compare _boolean values_ to True or False using `==`:
+- Don’t compare _boolean values_ to True or False using `==`:
 
     Yes:
 
@@ -562,6 +589,8 @@ Constants are usually defined on a module level and written in `UPPER_CASE_WITH_
 # Got questions on the go?
 
 Consult:
-* PEP8 online
-* Use automatic linters and formatter in _vscode_, e.g., `pylance` and `ruff`.
+
+- The PEP8 online.
+- Use automatic linters and formatter in _vscode_, e.g., `pylance` and `ruff`.
+- Check out code written by professionals.
   
