@@ -3,9 +3,10 @@
 Below is a list of mini projects for groups of 4-5 participants. They don't entail much coding, rather practicing the ideas we reviewed in the workshop.
 
 First, go to this repo: [**https://github.com/AtMostafa/good-coding-practices**](https://github.com/AtMostafa/good-coding-practices)  
-Clone it using the **HTTPS** link, unless you have set up SSH keys in your laptop and in your GitHub account.
+Clone it using the **HTTPS** link.
+If you have set up SSH keys in your laptop and in your GitHub account, use the SSH link.
 
-ALso, everyone needs to download the data files from [here](https://osf.io/wnv3e/files/osfstorage) (both files are required).
+Also, everyone needs to download the two data files from [here](https://osf.io/wnv3e/files/osfstorage) (both files are required).
 
 - Mini project #1: [Q1](/workshop/projects/Q1.md)
 - Mini project #2: [Q2](/workshop/projects/Q2.md)
