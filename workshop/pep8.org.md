@@ -7,7 +7,7 @@ paginate: true
 
 # PEP 8 — the Style Guide for Python Code  
 
-Dased on the [pep8.org](https://pep8.org/) website.
+Based on the [pep8.org](https://pep8.org/) website.
 
 ---
 
