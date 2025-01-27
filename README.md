@@ -11,6 +11,8 @@ In this part of the workshop, we will cover:
 - Collaborating on a mini project
 - Reviewing the contributions together
 
+You can find the slides [here](/workshop/git-and-coding-workshop.pdf).
+
 ## Good coding style
 
 The python styling guide based on PEP8 is [here](./workshop/pep8.org.md).
