@@ -16,7 +16,7 @@ Open a terminal where you've cloned the repo and create the environment by: `con
 The environment for this repo is called `workshop`.  
 Activate the environment by: `conda activate workshop`.  
 You can also add/remove dependencies to/from the `env.yml` file and *update* your existing environment.
-Open a terminal where the repo (and the `env.yml` file) are located and try: `conda update -f env.yml`.
+Open a terminal where the repo (and the `env.yml` file) are located and try: `conda env update -f env.yml`.
 
 ## Download the data files
 
